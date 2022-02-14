@@ -3,15 +3,46 @@
 
 char tabl[64];
 int tour=0;
-const char val[4]= "XO_";
+const char val[4]= "XO ";
 
 void setat(int x, int y, int tour){
   tabl[x+y*8]=val[tour];
 };
 
 char getat(int x,int y){
+<<<<<<< HEAD
   return tabl[x+y*8];
 };
+=======
+  if(x>=0 && x<8 && y>=0 && y<8){
+    return tabl[x+y*8];
+  }
+  return val[3];
+
+}
+int checkforpui(int x, int y){
+  int i,som,xx,yy;
+  for (int dx = -1; dx < 2; dx++) {
+    for (int dy = -1; dy < 2; dy++) {
+      i=1;
+      while(getat(x,y)==getat(x+dx*i,y+dy*i) && i<5){
+        i++;
+      }
+      som=0;
+      xx=x+dx*i;
+      yy=x+dy*i;
+      for(int j=0; j<4;j++){
+        som+=getat(xx,yy)==getat(xx-dx*j,yy-dy*j);
+      }
+      printf("Depuis (%d,%d) il y'a le même char %dfois\n",xx,yy,som );
+      if (som==4) {
+        return 1;
+      }
+    }
+    return 0;
+  }
+}
+>>>>>>> 45c4ff7cf07f620c86351ae092de2c8b057f788d
 
 int visualize(){
   printf("\t  0 1 2 3 4 5 6 7\n");
@@ -32,7 +63,12 @@ int putatcolumn(int col,int tour){
     where--;
   }
   setat(where,col,tour);
+<<<<<<< HEAD
 };
+=======
+  printf("Il y'a un puissance 4: %d\n",checkforpui(where,col));
+}
+>>>>>>> 45c4ff7cf07f620c86351ae092de2c8b057f788d
 
 int main() {
   printf("\n=== Execution del code ===\n");
@@ -44,9 +80,9 @@ int main() {
   int lieu=0;
   while (lieu>=0) {
     visualize();
-    printf("Un lieu stp bata : ");
-    scanf("%2d",&lieu);
     tour=(tour+1)%2;
+    printf("Un lieu stp bata (%c) : ",val[tour]);
+    scanf("%2d",&lieu);
     putatcolumn(lieu,tour);
   }
   return 0;
