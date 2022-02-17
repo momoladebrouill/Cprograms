@@ -3,23 +3,20 @@
 
 char tabl[64];
 int tour=0;
-const char val[4]= "XO ";
+const int null=2;/*position du caractère null*/
+const char val[4]="XO_";
 
 void setat(int x, int y, int tour){
   tabl[x+y*8]=val[tour];
 };
 
 char getat(int x,int y){
-<<<<<<< HEAD
-  return tabl[x+y*8];
-};
-=======
   if(x>=0 && x<8 && y>=0 && y<8){
     return tabl[x+y*8];
   }
-  return val[3];
+  return val[null];
+};
 
-}
 int checkforpui(int x, int y){
   int i,som,xx,yy;
   for (int dx = -1; dx < 2; dx++) {
@@ -42,7 +39,6 @@ int checkforpui(int x, int y){
     return 0;
   }
 }
->>>>>>> 45c4ff7cf07f620c86351ae092de2c8b057f788d
 
 int visualize(){
   printf("\t  0 1 2 3 4 5 6 7\n");
@@ -59,22 +55,18 @@ int visualize(){
 
 int putatcolumn(int col,int tour){
   int where=7;
-  while(getat(where,col)!=val[2] && where>=0){
+  while(getat(where,col)!=val[null] && where>=0){
     where--;
   }
   setat(where,col,tour);
-<<<<<<< HEAD
-};
-=======
   printf("Il y'a un puissance 4: %d\n",checkforpui(where,col));
 }
->>>>>>> 45c4ff7cf07f620c86351ae092de2c8b057f788d
 
 int main() {
   printf("\n=== Execution del code ===\n");
   for (int i = 0; i < 8; i++) {
     for (int j = 0; j < 8; j++) {
-      setat(i,j,2);
+      setat(i,j,null);
     }
   }
   int lieu=0;
@@ -87,4 +79,3 @@ int main() {
   }
   return 0;
 };
-
