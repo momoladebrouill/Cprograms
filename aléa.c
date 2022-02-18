@@ -4,10 +4,11 @@
 
 int main(){
 	srand(time(NULL));//planter la seed, à partir du temps
+	int ut;
 	for (int i = 0; i < 10; ++i)
-	{
-		printf("%i\n",ut);
+	{	
 		ut=rand();
+		printf("%i\n",ut);
 	};
 	return 0;
 }

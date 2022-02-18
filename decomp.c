@@ -1,18 +1,12 @@
 #include <stdio.h>
-#include <stdbool.h>
-bool isint( double a){
-	int b=a;
-	return b==a;
-};
+
 int main(){
-	double lot;
+	int lot;
 	printf("entrez un nombre à décomposer: ");
-	scanf("%lg",&lot);
-	for (double i = 1; i < lot; ++i)
-	{
-		if (isint(lot/i))
-		{
-			printf("%g ",i);
+	scanf("%i",&lot);
+	for (int i = 1; i < lot; i++){
+		if ((lot/i)*i ==lot){
+			printf("%i\n",i);
 		}
 	};
 	printf("\n");
