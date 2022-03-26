@@ -1,37 +1,53 @@
 #include <stdio.h>
 #include <stdlib.h>
+/*struct node{
+  int value;
+  int *next;
+};
 
-int calculateSum(int num[],int size);
-void printls(int num[],size_t size);
-int trianglePascal(int nb);
+void add(struct node l, int value){
+  while (l.next!=0) {
+    struct node next;
+    next=*l.next;
+  }
+  struct node new;
+  new.value = value;
+  l.next = new;
+}*/
 
-int main() {
-  trianglePascal(10);
+typedef struct Node {
+    int v;
+    struct Node * n; // Très bizarre
+} node;
+
+void printls(node * h) {
+    node * c = h;
+    while (c != 0) {
+        printf("%d\n", c->v);
+        c = c->n;
+    }
+}
+
+void add(node * h, int v){
+  node * c = h;
+  while (c->n != 0) {
+    c = c->n;
+  }
+  c->n = (node *) malloc(sizeof(node));
+  c = c->n;
+  c->v = v;
+  c->n = 0;
+}
+
+int main(){
+  node * l = 0;
+  l = (node *) malloc(sizeof(node));
+  l->v = 1;
+  l->n = 0;
+  add(l,5);
+  printls(l);
+  printf("Après un add: \n");
+  add(l,69);
+  printls(l);
   return 0;
-}
-
-void printls(int num[], size_t size){
-  for (size_t i = 0; i < size; i++) {
-    printf("%d\t",num[i] );
-  }
-  printf("\n");
-}
-
-int trianglePascal(int nb){
-  int s[]={1};
-  for (int i = 1; i < nb; i++) {
-    int next[i+1];
-    next[0]=1;
-    next[i]=1;
-
-    for (int j = 1; j < i-1 ; j++) {
-      next[j]=0;
-    }
-
-    int s[i+1];
-    for(int j = 0; j < i ; j++){
-      s[j]=next[j];
-    }
-    printls(s,i);
-  }
 }
