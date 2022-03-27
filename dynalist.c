@@ -1,23 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-/*struct node{
-  int value;
-  int *next;
-};
 
-void add(struct node l, int value){
-  while (l.next!=0) {
-    struct node next;
-    next=*l.next;
-  }
-  struct node new;
-  new.value = value;
-  l.next = new;
-}*/
-
-typedef struct Node {
+typedef struct node { //on définit un nouveau type, qui est une structure nommé node
     int v;
-    struct Node * n; // Très bizarre
+    struct node * n; // Très bizarre
 } node;
 
 void printls(node * h) {
@@ -40,14 +26,13 @@ void add(node * h, int v){
 }
 
 int main(){
-  node * l = 0;
-  l = (node *) malloc(sizeof(node));
-  l->v = 1;
-  l->n = 0;
+  node * l = (node *) malloc(sizeof(node));
+  l->v = 1,l->n = 0;
   add(l,5);
-  printls(l);
-  printf("Après un add: \n");
   add(l,69);
+  for (size_t i = 0; i < 10; i++) {
+    add(l,i);
+  }
   printls(l);
   return 0;
 }
