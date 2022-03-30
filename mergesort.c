@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #define taille 10
 
 void printls(int *l,size_t len){
@@ -16,37 +17,40 @@ int * gen(){
    return r;
 }
 
-int * fusion(int * rendu, int * l1,int*l2, int lenght1, int lenght2){
-  int i1=lenght1,i2=lenght2,i=lenght1+lenght2;
-  while (i1>0 && i2>0) {
-    if (l1[i1]<l2[i2]) {
-      rendu[--i]=l2[i2];
-      i1--;
-    }else{
-      rendu[--i]=l2[i2];
-      i2--;
-    }
-  }
-  if (i1>0) {
-    while (i1) {
-      rendu[--i]=l1[i1];
-      i1--;
-    }
-  }else{
-    while(i2){
-      rendu[--i]=l2[i2];
-      i2--;
-    }
-  }
-  return rendu;
-}
+void mergesort(int* ls,size_t size){
+  if (size>1) {
+    int mid=(int)size/2;
+    //Gauche
+    mergesort(ls,mid);
+    //droite
+    int *d;
+    d=ls+mid;
+    mergesort(d,mid);
+    int i=0,j=0;
 
-void * mergesort(int *a){
-  static int rendu[100];
+    //fusion
+    while (i<mid && j<mid) {
+      if (ls[i]<ls[mid+j]) {
+        i++;
+      }else{
+        ls[i]=ls[mid+j];
+        j++;
+      }
+    }
+    while (j<mid) {
+      ls[i]=ls[mid+j];
+      j++;
+    }
+  }
 }
 
 int main (){
    int *a;
+   srand(time(NULL));
    a=gen();
+   printls(a,taille);
+   printf("zzzzzzz\n");
+   mergesort(a,taille);
+   printls(a,taille);
    return 0;
 }
