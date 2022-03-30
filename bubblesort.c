@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define taille 10
 
 int * gen(){
@@ -22,7 +23,7 @@ void bubblesort(int *l,size_t len){
             }
         }
     }
-} 
+}
 
 void printls(int *l,size_t len){
     for ( int i = 0; i < len; i++ ) {
@@ -34,9 +35,11 @@ int main (){
    int *a;
    a=gen();
    printf("avant\n");
-   printls(a,10);
-   bubblesort(a,10);
+   printls(a,taille);
+
+   bubblesort(a,taille);
+
    printf("apres\n");
-   printls(a,10);
+   printls(a,taille);
    return 0;
 }
