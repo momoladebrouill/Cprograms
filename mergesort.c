@@ -5,8 +5,9 @@
 
 void printls(int *l,size_t len){
     for ( int i = 0; i < len; i++ ) {
-      printf( "%d %i\n", i,l[i]);
+      printf( "%i\t",l[i]);
    }
+   printf("\n");
 }
 
 int * gen(){
@@ -20,26 +21,40 @@ int * gen(){
 void mergesort(int* ls,size_t size){
   if (size>1) {
     int mid=(int)size/2;
+
     //Gauche
     mergesort(ls,mid);
-    //droite
-    int *d;
-    d=ls+mid;
-    mergesort(d,mid);
-    int i=0,j=0;
 
-    //fusion
+    //Droite
+    int *d=ls+mid;
+    mergesort(d,mid);
+
+    //copie avant fusion
+    int ancien[size];
+    for (size_t i = 0; i < size; i++)ancien[i]=ls[i];
+
+    //fusion, sur ls
+    int i=0,j=0,k=0;
     while (i<mid && j<mid) {
-      if (ls[i]<ls[mid+j]) {
+      if (ancien[i]>ancien[mid+j]) {
+        ls[k]=ancien[i];
         i++;
       }else{
-        ls[i]=ls[mid+j];
+        ls[k]=ancien[mid+j];
         j++;
       }
+      k++;
     }
+
     while (j<mid) {
-      ls[i]=ls[mid+j];
+      ls[k]=ancien[mid+j];
       j++;
+      k++;
+    }
+    while (i<mid) {
+      ls[k]=ancien[i];
+      i++;
+      k++;
     }
   }
 }
