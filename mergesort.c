@@ -3,31 +3,34 @@
 #include <time.h>
 #define taille 10
 
-void printls(int *l,size_t len){
+int printls(int *l,size_t len){
     for ( int i = 0; i < len; i++ ) {
-      printf( "%i\t",l[i]);
+      printf( "%i ",l[i]);
    }
    printf("\n");
+   return 0;
 }
 
 int * gen(){
+   srand(time(NULL));
    static int r[taille];
    for ( int i = 0; i < taille; ++i) {
-      r[i] = rand()%50;
+      r[i] = rand()%69;
    }
    return r;
 }
 
-void mergesort(int* ls,size_t size){
+int mergesort(int* ls,size_t size){
   if (size>1) {
-    int mid=(int)size/2;
+    int l1=(int)size/2+size%2;
+    int l2=(int)size/2;
 
     //Gauche
-    mergesort(ls,mid);
+    mergesort(ls,l1);
 
     //Droite
-    int *d=ls+mid;
-    mergesort(d,mid);
+    int *d=ls+l1;
+    mergesort(d,l2);
 
     //copie avant fusion
     int ancien[size];
@@ -35,36 +38,36 @@ void mergesort(int* ls,size_t size){
 
     //fusion, sur ls
     int i=0,j=0,k=0;
-    while (i<mid && j<mid) {
-      if (ancien[i]>ancien[mid+j]) {
+    while (i<l1 && j<l2) {
+      if (ancien[i]<ancien[l1+j]) {
         ls[k]=ancien[i];
         i++;
       }else{
-        ls[k]=ancien[mid+j];
+        ls[k]=ancien[l1+j];
         j++;
       }
       k++;
     }
 
-    while (j<mid) {
-      ls[k]=ancien[mid+j];
+    while (j<l2) {
+      ls[k]=ancien[l1+j];
       j++;
       k++;
     }
-    while (i<mid) {
+
+    while (i<l1) {
       ls[k]=ancien[i];
       i++;
       k++;
     }
   }
+  return 0;
 }
 
 int main (){
-   int *a;
-   srand(time(NULL));
-   a=gen();
+   int *a=gen();
    printls(a,taille);
-   printf("zzzzzzz\n");
+   printf("\n");
    mergesort(a,taille);
    printls(a,taille);
    return 0;
