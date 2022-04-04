@@ -8,31 +8,23 @@ typedef struct node {
     struct node * g;
     struct node * d;
 } node;
-int in(int v, int * array){
-  size_t len=sizeof(array)/sizeof(array[0]);
-  for (size_t i = 0; i < len; i++) {
-    if(array[i]==v){
-      array[i]=0;
-      return 1;
-    }
-  }
-  return 0;
-}
 
-node * generate(node * r, int val,int * done){
+
+
+node * generate(node * r, int val){
     r->v=val;
     int vg=val-2,vd=val-1;
 
-    if (vg>0 && !in(vg,done) ){
+    if (vg>0){
       r->g=(node*) size;
-      generate(r->g,vg,done);
+      generate(r->g,vg);
     }else{r->g=0;} //maybe use less
 
-    if (vd>0 && !in(vg,done)){
+    if (vd>0){
       r->d=(node*) size;
-      generate(r->d,vd,done);
-    }
-    else{r->d=0;} // so this does
+      generate(r->d,vd);
+    }else{r->d=0;} // so this does
+
     return r;
 }
 
@@ -59,10 +51,7 @@ int main() {
     srand(time(NULL));
 
     node * b = (node *) size;
-    int array[10];
-    for (size_t i = 0; i < 10; i++)array[i]=i;
-
-    generate(b,10,array);
+    generate(b,5);
     printf("%i\n",check(b));
     print(b,0);
     return 0;
