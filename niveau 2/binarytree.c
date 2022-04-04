@@ -3,35 +3,47 @@
 #include <time.h>
 #define size malloc(sizeof(node))
 
-typedef struct node { 
+typedef struct node {
     int v;
     struct node * g;
     struct node * d;
 } node;
+int in(int v, int * array){
+  size_t len=sizeof(array)/sizeof(array[0]);
+  for (size_t i = 0; i < len; i++) {
+    if(array[i]==v){
+      array[i]=0;
+      return 1;
+    }
+  }
+  return 0;
+}
 
 node * generate(node * r, int val,int * done){
-    for(size_t i;i<5;i++){}
-    if(val>0){
-        r->v=val;
-        int vg=rand()%val,vd=rand()%val*2;
-        r->g=(node*)size;
-        r->d=(node*)size;
-        generate(r->g,val-2,done);
-        generate(r->d,val-1,done);
-    }else{
-        r->v=-1;
+    r->v=val;
+    int vg=val-2,vd=val-1;
+
+    if (vg>0 && !in(vg,done) ){
+      r->g=(node*) size;
+      generate(r->g,vg,done);
+    }else{r->g=0;} //maybe use less
+
+    if (vd>0 && !in(vg,done)){
+      r->d=(node*) size;
+      generate(r->d,vd,done);
     }
+    else{r->d=0;} // so this does
     return r;
 }
 
 int check(node *r){
-    if(r->g == 0 && r->d == 0){
+    if(r->g == 0 || r->d == 0){
         return 1;
-    }else if((r->g->v < r->v) && (r->g->v < r->d->v)){
-        return check(r->g) && check(r->d);
-    }else{
-        return 0;
     }
+    if((r->g->v < r->v) && (r->v < r->d->v) ){
+      return check(r->g) && check(r->d);
+    }
+    return 0;
 }
 
 void print(node *r,int tabs){
@@ -45,14 +57,13 @@ void print(node *r,int tabs){
 
 int main() {
     srand(time(NULL));
-    node * a = (node *) size;
-    a->v=5;
-    node *b=(node*)size;
 
-    int done[5]; 
-    generate(b,5,*done);
+    node * b = (node *) size;
+    int array[10];
+    for (size_t i = 0; i < 10; i++)array[i]=i;
 
-    printf("%i\n---\n",check(b));
+    generate(b,10,array);
+    printf("%i\n",check(b));
     print(b,0);
     return 0;
 }
