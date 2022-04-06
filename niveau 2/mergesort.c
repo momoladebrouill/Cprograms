@@ -1,56 +1,74 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define size malloc(sizeof(node))
+#define taille 10
 
-typedef struct node { 
-    int v;
-    struct node * g;
-    struct node * d;
-} node;
-
-node * generate(node * r, int val,int * done){
-    for(size_t i;i<5;i++){}
-    if(val>0){
-        r->v=val;
-        int vg=rand()%val,vd=rand()%val;
-        r->g=(node*)size;
-        r->d=(node*)size;
-        generate(r->g,vg,done);
-        generate(r->d,vd,done);
-    }
-    return r;
+int printls(int *l,size_t len){
+    for ( int i = 0; i < len; i++ ) {
+      printf( "%i ",l[i]);
+   }
+   printf("\n");
+   return 0;
 }
 
-int check(node *r){
-    if(r->g == 0 && r->d == 0){
-        return 1;
-    }else if((r->g->v < r->v) && (r->g->v < r->d->v)){
-        return check(r->g) && check(r->d);
-    }else{
-        return 0;
-    }
+int * gen(){
+   srand(time(NULL));
+   static int r[taille];
+   for ( int i = 0; i < taille; ++i) {
+      r[i] = rand()%69;
+   }
+   return r;
 }
 
-void print(node *r,int tabs){
-    for(int i=0;i<tabs;i++)printf("---|");
-    printf("%i\n",r->v);
-    if(r->d!=0 && r->g!=0){
-        print(r->d,tabs+1);
-        print(r->g,tabs+1);
+int mergesort(int* ls,size_t size){
+  if (size>1) {
+    int l1=(int)size/2+size%2;
+    int l2=(int)size/2;
+
+    //Gauche
+    mergesort(ls,l1);
+
+    //Droite
+    int *d=ls+l1;
+    mergesort(d,l2);
+
+    //copie avant fusion
+    int ancien[size];
+    for (size_t i = 0; i < size; i++)ancien[i]=ls[i];
+
+    //fusion, sur ls
+    int i=0,j=0,k=0;
+    while (i<l1 && j<l2) {
+      if (ancien[i]<ancien[l1+j]) {
+        ls[k]=ancien[i];
+        i++;
+      }else{
+        ls[k]=ancien[l1+j];
+        j++;
+      }
+      k++;
     }
+
+    while (j<l2) {
+      ls[k]=ancien[l1+j];
+      j++;
+      k++;
+    }
+
+    while (i<l1) {
+      ls[k]=ancien[i];
+      i++;
+      k++;
+    }
+  }
+  return 0;
 }
 
-int main() {
-    srand(time(NULL));
-    node * a = (node *) size;
-    a->v=5;
-    node *b=(node*)size;
-
-    int done[5]; 
-    generate(b,5,done);
-
-    printf("%i\n---\n",check(b));
-    print(b,0);
-    return 0;
+int main (){
+   int *a=gen();
+   printls(a,taille);
+   printf("\n");
+   mergesort(a,taille);
+   printls(a,taille);
+   return 0;
 }
