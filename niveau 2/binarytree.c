@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 #define size malloc(sizeof(node))
 
 typedef struct node {
@@ -8,29 +8,23 @@ typedef struct node {
     struct node * d;
 } node;
 
-static int l1,l2;
-node * generate( node * r, int * list, int len){
-    l1=(int) len/2+len%2;
-    l2=(int) len/2;
-    
-    r->v = &(list);
-    if(l1>0){
-        r->g = (node * ) size;
-        generate(r->g,list,l1-1);
+void generate( node * r, int * list,int deb, int fin){
+    int mid=(int) (fin-deb)/2;
+    int len=(fin-deb+1);
+    r->v = list[deb+mid];
+    r->g=(node*)size;
+    r->d=(node*)size;
+    if(len==3){
+      r->g->v=list[deb+0];
+      r->d->v=list[deb+2];
     }
-    
-    if(l2>0){
-        r->d = (node*) size;
-        generate(r->d,*(list+l1),l2-1);
+    else if(len>3){
+      generate(r->g,list,deb,mid-1);
+      generate(r->d,list,mid+1,fin);
+    }else{
+      printf("Liste trop courte rip\n");
     }
-    
-    /*if(l2){
-        r->d = (node*) size;
-        int *deb=(val+l1);
-        generate(r->d,deb,l2);
-    }*/
-    
-    return r;
+
 }
 
 int check(node *r){
@@ -56,16 +50,10 @@ void print(node *r,int tabs){
 
 int main() {
     node * b = (node *) size;
-    /*b->g=(node*)size;
-    b->d=(node*)size;
-    b->g->v=1;
-    b->d->v=3;
-    b->v=2;
-    b->g->g=(node*)size;
-    b->g->g->v=5;*/
-    static int elems={1,2,3,4,5,6,7,8};
-    generate(b,elems,5);
-    printf("Iel est bien : %i\n",check(b));
+
+    static int elems[]={1,2,3,4,5,6,7};
+    generate(b,elems,0,6);
+    //printf("Iel est bien : %i\n",check(b));
     print(b,0);
     return 0;
 }
