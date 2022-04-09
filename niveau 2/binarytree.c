@@ -4,8 +4,8 @@
 
 typedef struct node {
     int v;
-    struct node * g;
-    struct node * d;
+    struct node * g;//inf
+    struct node * d;//sup
 } node;
 
 void generate( node * r, int * list,int deb, int fin){
@@ -27,20 +27,21 @@ void generate( node * r, int * list,int deb, int fin){
       printf("Liste trop courte : %i\n",len);
     }
 }
+
 void add(node *r, int v){
   if (r->v > v) {
-    if(r->d){
-      add(r->d,v);
-    }else{
-      r->d=(node*) size;
-      r->d->v=v;
-    }
-  }else{
     if(r->g){
       add(r->g,v);
     }else{
       r->g=(node*) size;
       r->g->v=v;
+    }
+  }else{
+    if(r->d){
+      add(r->d,v);
+    }else{
+      r->d=(node*) size;
+      r->d->v=v;
     }
   }
 }
