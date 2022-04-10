@@ -6,14 +6,14 @@ char * binprint(int num,char * p,int l){
   int ind=0;
   while (ind<l){
     p[ind] = t&num ? '1':'0';
-    t=t<<1;
+    t = t<<1;
     ind++;
   }
+  //Renverser la liste
   for(size_t i=0;i<(int)ind/2;i++){
-    int a=i,b=ind-1-i;
-    p[a]=p[a]^p[b];
-    p[b]=p[a]^p[b];
-    p[a]=p[a]^p[b];
+    p[i] = p[i]^p[ind-1-i];
+    p[ind-1-i] = p[i]^p[ind-1-i];
+    p[i] = p[i]^p[ind-1-i];
   }
   return p;
 }
@@ -30,6 +30,5 @@ int main(int argc, char const *argv[]) {
   printf("(a|b)&~(a&b): %s\n",s);
   binprint(a^b,s,4);
   printf("a^b: %s\n",s);
-
   return 0;
 }
