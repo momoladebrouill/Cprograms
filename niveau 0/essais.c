@@ -22,7 +22,7 @@ int main()
 			printf("qu'un seul\n");
 			break;
 		case 2:
-			printf("et de deux\n");
+			printf("et de deux vindieu\n");
 			break;
 		case 3:
 			printf("jamais deux sans trois\n");
@@ -30,6 +30,6 @@ int main()
 		default:
 			printf("%s\n","mmmh je sais pas" );
 	}
-	printf("%f\n",(double)1/0);
+	printf("%f\n",(double)1/(x-x));
 	return 0;
 }
