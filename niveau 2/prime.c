@@ -1,7 +1,7 @@
 #include <stdio.h>
-#define WIDTH 24
-#define HEIGHT 10
-
+#define WIDTH 50
+#define HEIGHT 16
+int primes[HEIGHT];// On va les rajouter au fur et à mesure qu'on les rencontre
 void create(int list[WIDTH][HEIGHT]){
 	int nbofprimes=1;
 	for(int i=1;i<WIDTH;i++){ // Pour chaque nombre
@@ -19,6 +19,7 @@ void create(int list[WIDTH][HEIGHT]){
 			}
 			if(NoDivs){ // Si il est premier
 				list[i][nbofprimes]++;// On le considère comme multiple de himself
+				primes[nbofprimes]=i;
 				nb=1; // Il est premier, ça ne sert à rien de descendre
 				nbofprimes++; // logique
 			}
@@ -33,12 +34,11 @@ int main(){
 			list[i%WIDTH][i/WIDTH]=0;
 		}
 		create(list);
-		const int primes[]={1,2,3,5,7,11,13,17,19,23,29,37}; //juste pour le render tkt
 		for(int i=0;i<WIDTH*HEIGHT;i++){
 			if(i%WIDTH==0){
-				printf("\n\033[1;33m%2i\033[0m ",primes[i/WIDTH]);
+				printf("\n%2i ",primes[i/WIDTH]);
 			}else{
-				printf("%2i ",list[i%WIDTH][i/WIDTH]);
+				printf(list[i%WIDTH][i/WIDTH]?"\033[1;33m%2i\033[0m ":"%2i ",list[i%WIDTH][i/WIDTH]);
 			}
 		}	
 		return 0;
