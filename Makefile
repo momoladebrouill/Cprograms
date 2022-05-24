@@ -1,5 +1,5 @@
 make:
-	@gcc ./"niveau 2"/structArray.c
+	@gcc ./"niveau 2"/prime.c
 	@./a.out
 clean:
 	$(RM) */a.out
