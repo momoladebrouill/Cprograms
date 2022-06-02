@@ -17,17 +17,17 @@ void create(int list[WIDTH][HEIGHT]){
 						// On ajoute les diviseurs de celui trouvé
 				}
 			}
-			if(NoDivs){ // Si il est premier
+			if(NoDivs){ 
 				list[i][nbofprimes]++;// On le considère comme multiple de himself
 				primes[nbofprimes]=i;
-				nb=1; // Il est premier, ça ne sert à rien de descendre
-				nbofprimes++; // logique
+				nb=1;
+				nbofprimes++;
 			}
 
 		}
 	}
 }
-	
+
 int main(){
 		int list[WIDTH][HEIGHT];
 		for(int i=0;i<WIDTH*HEIGHT;++i){
@@ -40,6 +40,7 @@ int main(){
 			}else{
 				printf(list[i%WIDTH][i/WIDTH]?"\033[1;33m%2i\033[0m ":"%2i ",list[i%WIDTH][i/WIDTH]);
 			}
-		}	
+		}
+		printf("\n");
 		return 0;
 }
