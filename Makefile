@@ -1,5 +1,5 @@
 make:
-	@gcc ./"niveau 1"/matrix.c
+	@gcc ./"niveau 0"/asm.c
 	@./a.out
 clean:
 	$(RM) */a.out
